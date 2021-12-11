@@ -13,9 +13,13 @@
 
 <main class="wrapper">
     <div class="articles">
-        <form name="newTwiit" method="post" action="updateDB.php">
-            <label><input type="file" name="userpicture" accept="image/png, image/jpeg, image/jpg"> ></label>
-            <label> Username: <input type="text" placeholder="Username" name="username" value="" required></label>
+        <form name="newTwiit" method="post" action="index.php">
+            <label> Username:
+                <select name="username" >
+                    <?php foreach ($twiits as $twiit): ?>
+                        <option value="<?= $twiit->getUserName()?>"><?= $twiit->getUserName()?></option>
+                    <?php endforeach; ?>
+                </select></label>
             <label>Your text<input type="text" placeholder="Express yourself" name="content" value="" required></label>
             <label>Date<input type="date" placeholder="Default date Today" name="date_posted" value=""></label>
             <button type="submit">Twiit it !</button>
