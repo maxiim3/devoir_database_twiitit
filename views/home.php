@@ -13,7 +13,8 @@
 
 <main class="container">
     <div class="wall">
-        <fieldset>
+
+        <fieldset class="form">
             <form name="newPost" method="post" action="index.php" class="form">
                 <label> Username:
                     <select name="username" >
@@ -37,17 +38,19 @@
 
         <section class="wall-post">
             <?php foreach ($postsTab as $post): ?>
-                <div class="post">
-                    <aside>
-                        <img src="<?= $usersTab[$post->getUserID()-1]->getAvatarURL()?>" alt="avatar of <?= $usersTab[$post->getUserID()-1]->getUserName()?>">
-                    </aside>
-                    <article>
-                        <h2><?= $usersTab[$post->getUserID()-1]->getUserName()?></h2>
-                        <textarea autocapitalize="sentences" readonly rows="3" cols="35"><?= $post->getContent() ?></textarea>
-                        <button type="button">modify</button>
-                        <strong>Date : <?= $post->getPostDate() ?></strong>
-                    </article>
-                </div>
+                <fieldset class="post">
+                    <form name="modifyPost" method="post" action="index.php" class="form">
+                        <aside>
+                            <img src="<?= $usersTab[$post->getUserID()-1]->getAvatarURL()?>" alt="avatar of <?= $usersTab[$post->getUserID()-1]->getUserName()?>">
+                        </aside>
+                        <article>
+                            <h2><?= $usersTab[$post->getUserID()-1]->getUserName()?></h2>
+                            <textarea name="text" autocapitalize="sentences" readonly rows="3" cols="35"><?= $post->getContent() ?></textarea>
+                            <button type="button">modify</button>
+                            <strong>Date : <?= $post->getPostDate() ?></strong>
+                        </article>
+                    </form>
+                </fieldset>
             <?php endforeach; ?>
         </section>
 
