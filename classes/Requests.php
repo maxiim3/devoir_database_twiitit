@@ -31,9 +31,9 @@ class Requests
         return "insert into `user` (`avatar_url`, `username`) VALUE ('$avatarURL', '$userName');";
     }
 
-    public static function createPost($username, $date, $content): string
+    public static function createPost($id, $username, $date, $content, $user_id): string
     {
-        return "insert into `posts` (`username`, `date_posted`, `content`) VALUE ('$username', '$date', '$content');";
+        return "insert into `posts` (`id`, `username`, `date_posted`, `content`, `user_id`) VALUE ($id, '$username', '$date', '$content', $user_id);";
     }
 
 

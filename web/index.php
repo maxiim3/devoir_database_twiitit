@@ -53,15 +53,23 @@ require_once '../views/home.php';
 /**
  * Send datas to DB
  */
+$postID = count($postsTab)+1;
+$postUserName = $_POST["username"];
+$postDate = $_POST["date_posted"];
+$postContent = $_POST["content"];
+$postUserID = $_POST["user_id"];
 
 try {
     $pdo->query(
         Requests::createPost(
-            $_POST["username"],
-            $_POST["date_posted"],
-            $_POST["content"]
+            $postID,
+            $postUserName,
+            $postDate,
+            $postContent,
+            $postUserID
         )
     );
+
     echo "success!";
 }
 catch (Exception $e) {
