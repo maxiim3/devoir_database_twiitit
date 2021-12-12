@@ -17,14 +17,14 @@ class DbConnect
         /**
          * URL de connexion a la BDD host/port/user/pdo
          */
-        //
-//        try {
-//        }
-//        catch (PDOException $e) {
-//            echo "ERROR DB: {$e->getMessage()}<br><br>";
-//        }
-
         self::$_urlCnx = "mysql:host=".self::$_host.":".self::$_port.";dbname=".self::$_dbName;
-        return new PDO(self::$_urlCnx, self::$_user, self::$_password);
+
+        try {
+            return new PDO(self::$_urlCnx, self::$_user, self::$_password);
+        }
+        catch (PDOException $e) {
+            echo "ERROR DB: {$e->getMessage()}<br><br>";
+        }
+
     }
 }

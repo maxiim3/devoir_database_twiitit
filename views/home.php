@@ -1,6 +1,3 @@
-<?php
-    include_once '../web/index.php';
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,28 +10,32 @@
 
 <main class="wrapper">
     <div class="articles">
-        <form name="newTwiit" method="post" action="index.php">
+
+        <form name="newPost" method="post" action="index.php">
             <label> Username:
                 <select name="username" >
-                    <?php foreach ($twiits as $twiit): ?>
-                        <option value="<?= $twiit->getUserName()?>"><?= $twiit->getUserName()?></option>
+                    <?php foreach ($usersTab as $user): ?>
+                        va
+                        <option value="<?= $user->getUserName()?>"><?= $user->getUserName()?></option>
                     <?php endforeach; ?>
                 </select></label>
+
             <label>Your text<input type="text" placeholder="Express yourself" name="content" value="" required></label>
             <label>Date<input type="date" placeholder="Default date Today" name="date_posted" value=""></label>
             <button type="submit">Twiit it !</button>
             <button type="reset">Reset</button>
         </form>
 
-        <!--          Php Injection -->
-        <?php foreach ($twiits as $twiit): ?>
+<!--                  Php Injection-->
+        <?php foreach ($postsTab as $post): ?>
             <div class="article">
-                <img src="<?= $twiit->getAvatarUrl() ?>" alt="avatar of <?= $twiit->getUsername() ?>">
-                <h2><?= $twiit->getUsername() ?></h2>
+                <img src="<?= $usersTab[$post->getUserID()-1]->getAvatarURL()?>" alt="avatar of <?= $usersTab[$post->getUserID()-1]->getUserName()?>">
+                <h2><?= $usersTab[$post->getUserID()-1]->getUserName()?></h2>
                 <div class="meta-data">
-                    <strong>Date <?= $twiit->getDatePosted() ?></strong>
-                </div>
-                <p><?= $twiit->getContent() ?></p>
+                    <strong>Date : <?= $post->getPostDate() ?></strong>
+            </div>
+                    <textarea autocapitalize="sentences" readonly rows="3" cols="35"><?= $post->getContent() ?></textarea>
+                    <button type="button">modify</button>
             </div>
         <?php endforeach; ?>
         <!--          Php Injection -->
@@ -42,6 +43,7 @@
     </div>
 </main>
 
+<script src="/web/script.js" defer></script>
 </body>
 </html>
 
