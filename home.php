@@ -1,3 +1,7 @@
+<?php
+header('index.php');
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,21 +18,18 @@
 <main class="container">
     <div class="wall">
 
-        <fieldset class="form">
-            <form name="newPost" method="post" action="index.php" class="form">
-                <label> Username:
-                    <select name="username" >
-                        <?php foreach ($usersTab as $user): ?>
-
-                            <option value="<?= $user->getUserName()?>"><?= $user->getUserName()?></option>
-                        <?php endforeach; ?>
+        <fieldset>
+            <form name="newPost" id="newPost" method="get" action='index.php' class="form">
+                <label> Pseudo :
+                    <select name="userID" >
+                        <?php foreach ($usersTab as $user) :?>
+                            <option value="<?=$user->getId()?>"> <?=$user->getUserName()?> </option>
+                        <?endforeach; ?>
                     </select></label>
-                <input type="text" name="user_id" value="<?= 2?>">
-
-                <label>Your text
+                <label>Post:
                     <input type="text" placeholder="Express yourself" name="content" value="" required>
                 </label>
-                <label>Date
+                <label>Date :
                     <input type="date" placeholder="Default date Today" name="date_posted" value="">
                 </label>
                 <button type="submit">Twiit it !</button>
@@ -39,14 +40,15 @@
         <section class="wall-post">
             <?php foreach ($postsTab as $post): ?>
                 <fieldset class="post">
-                    <form name="modifyPost" method="post" action="index.php" class="form">
+                    <form name="modifyPost" id="modifyPost_<?=$post->getId()?>" method="post" action="index.php" class="form">
                         <aside>
                             <img src="<?= $usersTab[$post->getUserID()-1]->getAvatarURL()?>" alt="avatar of <?= $usersTab[$post->getUserID()-1]->getUserName()?>">
                         </aside>
                         <article>
                             <h2><?= $usersTab[$post->getUserID()-1]->getUserName()?></h2>
-                            <textarea name="text" autocapitalize="sentences" readonly rows="3" cols="35"><?= $post->getContent() ?></textarea>
-                            <button type="button">modify</button>
+                            <textarea form="modifyPost_<?=$post->getId()?>" name="text_modify" autocapitalize="sentences"  rows="3" cols="35"><?= $post->getContent() ?></textarea>
+                            <button type="submit">modify</button>
+                            <button type="reset">delete</button>
                             <strong>Date : <?= $post->getPostDate() ?></strong>
                         </article>
                     </form>
